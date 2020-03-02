@@ -1,11 +1,13 @@
 import requests
 from bs4 import BeautifulSoup
 
-#自己的账号密码 
-#0开头的要用字符串 '*****'
-username=******
-password=******
 
+# ****************登录*******************
+
+#自己的账号密码 
+#0开头的要用字符串
+username=********
+password=********
 
 userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36"
 logUrl = "http://yiqing.ctgu.edu.cn/wx/index/loginSubmit.do"
@@ -25,9 +27,8 @@ postData={
     "password":password
 }
 
-# ****************登录*******************
-
 responseRes = yiqingSession.post(logUrl,data = postData, headers = header)
+
 
 # *******从提交页面获取 表单信息**********
 
@@ -35,9 +36,7 @@ getFormurl =  "http://yiqing.ctgu.edu.cn/wx/health/toApply.do"
 
 responseRes = yiqingSession.get(getFormurl)
 
-formHtml = responseRes.text
-
-supe = BeautifulSoup(formHtml,"html.parser")
+supe = BeautifulSoup(responseRes.text,"html.parser")
 
 getFormlist = supe.find_all('input')
 
@@ -72,8 +71,6 @@ postData={
     "qt":"",
 }
 
-#从提交页面获取表单信息
-
 getFormlist=getFormlist[0:15]
 
 for Formdata in getFormlist :
@@ -84,9 +81,7 @@ for Formdata in getFormlist :
 
 postFormurl = "http://yiqing.ctgu.edu.cn/wx/health/saveApply.do"
 
-
 header['Referer'] = "http://yiqing.ctgu.edu.cn/wx/health/toApply.do"
-
 
 responseRes=yiqingSession.post(postFormurl,data=postData,headers=header)
 
