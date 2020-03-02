@@ -63,11 +63,9 @@ postData={
 getFormurl =  "http://yiqing.ctgu.edu.cn/wx/health/toApply.do"
 responseRes = yiqingSession.get(getFormurl)
 
-supe = BeautifulSoup(responseRes.text,"html.parser")
-getFormlist = supe.find_all('input')
-
 #获取必要信息填入表单
-getFormlist=getFormlist[0:15]
+soup = BeautifulSoup(responseRes.text,"html.parser")
+getFormlist = soup.find_all('input')[0:15]
 
 for Formdata in getFormlist :
     postData[Formdata.attrs['name']] = Formdata.attrs['value']
