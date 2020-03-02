@@ -81,19 +81,3 @@ header['Referer'] = "http://yiqing.ctgu.edu.cn/wx/health/toApply.do"
 responseRes=yiqingSession.post(postFormurl,data=postData,headers=header)
 
 print(responseRes.text)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
