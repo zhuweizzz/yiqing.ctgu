@@ -30,16 +30,7 @@ responseRes = yiqingSession.post(logUrl,data = postData, headers = header)
 
 # *******从提交页面获取 表单信息**********
 
-getFormurl =  "http://yiqing.ctgu.edu.cn/wx/health/toApply.do"
-
-responseRes = yiqingSession.get(getFormurl)
-
-supe = BeautifulSoup(responseRes.text,"html.parser")
-
-getFormlist = supe.find_all('input')
-
-#构建表单（默认身体健康）
-
+#构建表单（默认身体健康)
 postData={
     "ttoken":  '',
     "province":  "",
@@ -69,11 +60,17 @@ postData={
     "qt":"",
 }
 
+getFormurl =  "http://yiqing.ctgu.edu.cn/wx/health/toApply.do"
+responseRes = yiqingSession.get(getFormurl)
+
+supe = BeautifulSoup(responseRes.text,"html.parser")
+getFormlist = supe.find_all('input')
+
+#获取必要信息填入表单
 getFormlist=getFormlist[0:15]
 
 for Formdata in getFormlist :
     postData[Formdata.attrs['name']] = Formdata.attrs['value']
-
 
 #*************提交最终表单***********
 
