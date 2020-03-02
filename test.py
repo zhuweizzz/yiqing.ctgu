@@ -1,9 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 
+#自己的账号密码 
+#0开头的要用字符串 '*****'
+username=******
+password=******
 
-username=2017111327
-password=142716
 
 userAgent = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/80.0.3987.122 Safari/537.36"
 logUrl = "http://yiqing.ctgu.edu.cn/wx/index/loginSubmit.do"
@@ -39,7 +41,7 @@ supe = BeautifulSoup(formHtml,"html.parser")
 
 getFormlist = supe.find_all('input')
 
-#构建表单 不同身份有不同的地址和电话姓名 如果身体健康 大部分值都一样
+#构建表单（当然 默认身体健康）
 
 postData={
     "ttoken":  '',
@@ -78,7 +80,7 @@ for Formdata in getFormlist :
     postData[Formdata.attrs['name']] = Formdata.attrs['value']
 
 
-#***********提交最终表单********
+#*************提交最终表单***********
 
 postFormurl = "http://yiqing.ctgu.edu.cn/wx/health/saveApply.do"
 
